@@ -1,0 +1,9 @@
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.exe.config
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.exe
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.pdb
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.csprojResolveAssemblyReference.cache
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.Form1.resources
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.Properties.Resources.resources
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.csproj.GenerateResource.Cache
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.exe
+c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.pdb
