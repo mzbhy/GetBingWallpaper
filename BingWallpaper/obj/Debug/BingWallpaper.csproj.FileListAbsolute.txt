@@ -10,3 +10,11 @@ c:\users\hasee\documents\visual studio 2015\Projects\BingWallpaper\BingWallpaper
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.exe.config
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.exe
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.pdb
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.exe
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\bin\Debug\BingWallpaper.pdb
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.csprojResolveAssemblyReference.cache
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.Form1.resources
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.Properties.Resources.resources
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.csproj.GenerateResource.Cache
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.AboutBox1.resources
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.ImageShow.resources

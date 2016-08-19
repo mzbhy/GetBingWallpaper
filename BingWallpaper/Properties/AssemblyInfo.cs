@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("BingWallpaper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("用于将Bing（中国）首页的背景图设置为系统桌面。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ININ Lab")]
 [assembly: AssemblyProduct("BingWallpaper")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

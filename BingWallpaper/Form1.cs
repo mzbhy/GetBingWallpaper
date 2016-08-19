@@ -21,6 +21,8 @@ namespace BingWallpaper
             InitializeComponent();
         }
 
+        BingInfo WallpaperInfo = new BingInfo();
+
         public class BingInfo
         {
             private System.DateTime startTime;
@@ -63,7 +65,7 @@ namespace BingWallpaper
                 XmlNode xn = doc.SelectSingleNode("images");
                 xn = xn.SelectSingleNode("image");
                 XmlNode xn_url = xn.SelectSingleNode("url");
-                UrlSmall = xn_url.InnerText;
+                UrlSmall = "http://cn.bing.com/" + xn_url.InnerText;
                 UrlBig = UrlSmall.Replace("1366x768", "1920x1080");
                 XmlNode xn_copyright = xn.SelectSingleNode("copyright");
                 Copyright = xn_copyright.InnerText;
@@ -74,27 +76,12 @@ namespace BingWallpaper
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BingInfo WallpaperInfo = new BingInfo();
-            string filename = null;
-            string WallpaperUrl = null;
-            int SetResult = 0;
             WallpaperInfo.GetBingInfo();
-            Rectangle rect = Screen.GetWorkingArea(this);
-            if (rect.Width == 1920)
-                WallpaperUrl = "http://cn.bing.com/" + WallpaperInfo.UrlBig;
-            else if (rect.Width == 1366)
-                WallpaperUrl = "http://cn.bing.com/" + WallpaperInfo.UrlSmall;
-            else
-                MessageBox.Show("Resolution Error!");
-            pictureBox1.ImageLocation = WallpaperUrl;
-            filename = DownloadWallpaper(WallpaperUrl);
-            string filepath = Directory.GetCurrentDirectory() + "\\" + filename;
-            SetResult = SystemParametersInfo(20, 0, filepath, 0x01 | 0x02);
-            if (SetResult != 0)
-                File.Delete(filepath);            
+            string WallpaperUrl = "http://cn.bing.com/" + WallpaperInfo.UrlSmall;
+            pictureBox1.ImageLocation = WallpaperUrl;         
         }
 
-        private string DownloadWallpaper(string url)
+        public static string DownloadWallpaper(string url)
         {
             string filename = null;
             try
@@ -111,6 +98,23 @@ namespace BingWallpaper
             }
         }
 
+        public static void SetWallpaper(BingInfo WallpaperInfo, int width)
+        {
+            string WallpaperUrl = null;
+            WallpaperInfo.GetBingInfo();
+            if (width == 1920)
+                WallpaperUrl = WallpaperInfo.UrlBig;
+            else if (width == 1366)
+                WallpaperUrl = WallpaperInfo.UrlSmall;
+            else
+                MessageBox.Show("Resolution Error!");
+            string filename = DownloadWallpaper(WallpaperUrl);
+            string filepath = Directory.GetCurrentDirectory() + "\\" + filename;
+            int SetResult = SystemParametersInfo(20, 0, filepath, 0x01 | 0x02);
+            if (SetResult != 0)
+                File.Delete(filepath);
+        }
+
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfo")]
         public static extern int SystemParametersInfo(
         int uAction,
@@ -119,5 +123,28 @@ namespace BingWallpaper
         int fuWinIni
         );
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            WallpaperInfo.GetBingInfo();
+            ImageShow WallpaperPreviewFrm = new ImageShow(WallpaperInfo);
+            WallpaperPreviewFrm.Show();
+        }
+
+        private void setAsWallpaperToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 myabout = new AboutBox1();
+            myabout.Show();
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -117,17 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="arrows_circle_check" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\arrows_circle_check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrows_circle_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\arrows_circle_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrows_info" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\arrows_info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bing_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bing_logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        8eMfLzVmj4UpsE8AAAAASUVORK5CYII=
+</value>
   </data>
 </root>
