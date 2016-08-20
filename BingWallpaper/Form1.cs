@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+//TODO 添加对多屏不同分辨率的支持
 
 namespace BingWallpaper
 {
@@ -181,7 +182,7 @@ namespace BingWallpaper
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void setAsWallpaperToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
+            SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width); //获取当前分辨率
         }
 
         /// <summary>
