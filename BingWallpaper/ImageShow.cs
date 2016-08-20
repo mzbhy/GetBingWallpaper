@@ -47,7 +47,7 @@ namespace BingWallpaper
             InitializeComponent();
             WallpaperInfo = NewInfo;
             pictureBox1.ImageLocation = WallpaperInfo.UrlSmall;
-            pictureBox1.Controls.Add(pictureBox2);
+            pictureBox1.Controls.Add(pictureBox2); //用于处理pictureBox堆叠时的透明
             pictureBox1.Controls.Add(pictureBox3);
             pictureBox1.Controls.Add(pictureBox4);
             toolTip1.SetToolTip(pictureBox2, "Set as wallpaper");
