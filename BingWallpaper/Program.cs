@@ -17,7 +17,7 @@ namespace BingWallpaper
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Form1 frm = new Form1();
-            frm.TopLevel = false;
+            frm.TopLevel = false;  //用于隐藏Form1窗体
             Application.Run(frm);
         }
     }

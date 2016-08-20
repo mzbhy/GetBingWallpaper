@@ -12,10 +12,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+
 namespace BingWallpaper
 {
+    /// <summary>
+    /// 测试用窗体
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Form1"/> class.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +31,9 @@ namespace BingWallpaper
 
         BingInfo WallpaperInfo = new BingInfo();
 
+        /// <summary>
+        /// Bing信息类，包含了时间、大图地址、小图地址等信息
+        /// </summary>
         public class BingInfo
         {
             private System.DateTime startTime;
@@ -58,6 +69,9 @@ namespace BingWallpaper
                 get { return startTime; }
                 set { startTime = value; }
             }
+            /// <summary>
+            /// 采用Bing的一个xml格式的API，获取数据
+            /// </summary>
             public void GetBingInfo()
             {
                 XmlDocument doc = new XmlDocument();
@@ -74,13 +88,24 @@ namespace BingWallpaper
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the button1 control.
+        /// 测试用按键
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
             WallpaperInfo.GetBingInfo();
-            string WallpaperUrl = "http://cn.bing.com/" + WallpaperInfo.UrlSmall;
-            pictureBox1.ImageLocation = WallpaperUrl;         
+            string WallpaperUrl = WallpaperInfo.UrlSmall;
+            pictureBox1.ImageLocation = WallpaperUrl;
         }
 
+        /// <summary>
+        /// Downloads the wallpaper.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
         public static string DownloadWallpaper(string url)
         {
             string filename = null;
@@ -98,6 +123,11 @@ namespace BingWallpaper
             }
         }
 
+        /// <summary>
+        /// 根据系统分辨率，下载不同大小的壁纸，调用系统dll设置壁纸
+        /// </summary>
+        /// <param name="WallpaperInfo">Binginfo类</param>
+        /// <param name="width">系统分辨率宽度</param>
         public static void SetWallpaper(BingInfo WallpaperInfo, int width)
         {
             string WallpaperUrl = null;
@@ -115,6 +145,15 @@ namespace BingWallpaper
                 File.Delete(filepath);
         }
 
+
+        /// <summary>
+        /// 从user32.dll调用，用于查询或设置系统级参数
+        /// </summary>
+        /// <param name="uAction">查询或设置系统级参数.</param>
+        /// <param name="uParam">参考uAction常数表.</param>
+        /// <param name="lpvParam">按引用调用的Integer、Long和数据结构.</param>
+        /// <param name="fuWinIni">在设置系统参数的时候，是否应更新用户设置参数</param>
+        /// <returns></returns>
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfo")]
         public static extern int SystemParametersInfo(
         int uAction,
@@ -123,6 +162,11 @@ namespace BingWallpaper
         int fuWinIni
         );
 
+        /// <summary>
+        /// 托盘右键中预览图片的Handles
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             WallpaperInfo.GetBingInfo();
@@ -130,11 +174,21 @@ namespace BingWallpaper
             WallpaperPreviewFrm.Show();
         }
 
+        /// <summary>
+        /// 托盘右键中设置桌面背景的Handles
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void setAsWallpaperToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
         }
 
+        /// <summary>
+        /// 托盘右键中关于的Handles
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox1 myabout = new AboutBox1();
@@ -142,6 +196,11 @@ namespace BingWallpaper
 
         }
 
+        /// <summary>
+        /// 托盘右键中退出的Handles
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
