@@ -38,9 +38,9 @@ namespace BingWallpaper
         public class BingInfo
         {
             private System.DateTime startTime;
-            private string urlSmall;
-            private string urlBig;
-            private string copyright;
+            private string urlSmall = null;
+            private string urlBig = null;
+            private string copyright = null;
 
             public BingInfo()
             {
@@ -73,10 +73,20 @@ namespace BingWallpaper
             /// <summary>
             /// 采用Bing的一个xml格式的API，获取数据
             /// </summary>
-            public void GetBingInfo()
+            /// <returns>返回值为负，说明读取错误</returns>
+            public int GetBingInfo()
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load(@"http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1");
+                try
+                {
+                    doc.Load(@"http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return -1; 
+                }
+                
                 XmlNode xn = doc.SelectSingleNode("images");
                 xn = xn.SelectSingleNode("image");
                 XmlNode xn_url = xn.SelectSingleNode("url");
@@ -86,6 +96,7 @@ namespace BingWallpaper
                 Copyright = xn_copyright.InnerText;
                 XmlNode xn_startdata = xn.SelectSingleNode("startdate");
                 StartTime = System.DateTime.ParseExact(xn_startdata.InnerText, "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
+                return 1;
             }
         }
 
@@ -97,7 +108,10 @@ namespace BingWallpaper
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
-            WallpaperInfo.GetBingInfo();
+            int result = 0;
+            result = WallpaperInfo.GetBingInfo();
+            if (result == -1)
+                return;
             string WallpaperUrl = WallpaperInfo.UrlSmall;
             pictureBox1.ImageLocation = WallpaperUrl;
         }
@@ -129,10 +143,15 @@ namespace BingWallpaper
         /// </summary>
         /// <param name="WallpaperInfo">Binginfo类</param>
         /// <param name="width">系统分辨率宽度</param>
-        public static void SetWallpaper(BingInfo WallpaperInfo, int width)
+        /// <returns>返回值为负，说明读取错误，返回值为0，说明设置失败</returns>
+        public static int SetWallpaper(BingInfo WallpaperInfo, int width)
         {
+            int result = 0;
             string WallpaperUrl = null;
-            WallpaperInfo.GetBingInfo();
+            if(WallpaperInfo.UrlSmall == null)
+                result = WallpaperInfo.GetBingInfo();
+            if (result == -1)
+                return -1;
             if (width == 1920)
                 WallpaperUrl = WallpaperInfo.UrlBig;
             else if (width == 1366)
@@ -141,9 +160,10 @@ namespace BingWallpaper
                 MessageBox.Show("Resolution Error!");
             string filename = DownloadWallpaper(WallpaperUrl);
             string filepath = Directory.GetCurrentDirectory() + "\\" + filename;
-            int SetResult = SystemParametersInfo(20, 0, filepath, 0x01 | 0x02);
-            if (SetResult != 0)
-                File.Delete(filepath);
+            result = SystemParametersInfo(20, 0, filepath, 0x01 | 0x02);
+            return result;
+            //if (SetResult != 0)
+            //    File.Delete(filepath);
         }
 
 
@@ -170,7 +190,10 @@ namespace BingWallpaper
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            WallpaperInfo.GetBingInfo();
+            int result = 0;
+            result = WallpaperInfo.GetBingInfo();
+            if (result == -1)
+                return;
             ImageShow WallpaperPreviewFrm = new ImageShow(WallpaperInfo);
             WallpaperPreviewFrm.Show();
         }

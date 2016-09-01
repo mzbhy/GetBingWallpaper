@@ -121,6 +121,7 @@
     <Content Include="arrows_circle_remove.png" />
     <Content Include="arrows_info.png" />
     <Content Include="binglogo.ico" />
+    <None Include="lx-logo.png" />
     <None Include="Resources\bing_logo.jpg" />
     <None Include="Resources\Bing-logo-2013.png" />
     <None Include="Resources\Bing-logo.png" />

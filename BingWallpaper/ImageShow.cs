@@ -89,7 +89,10 @@ namespace BingWallpaper
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Form1.SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
+            int result = 0;
+            result = Form1.SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
+            if (result < 1)
+                this.Close();
         }
 
         /// <summary>
@@ -101,5 +104,6 @@ namespace BingWallpaper
         {
             this.Close();
         }
+
     }
 }

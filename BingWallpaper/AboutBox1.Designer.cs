@@ -67,7 +67,7 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logoPictureBox.Image = global::BingWallpaper.Properties.Resources.bing_logo;
+            this.logoPictureBox.Image = global::BingWallpaper.Properties.Resources.lx_logo;
             this.logoPictureBox.ImageLocation = "";
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
