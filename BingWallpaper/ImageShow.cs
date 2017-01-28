@@ -107,15 +107,30 @@ namespace BingWallpaper
                 {
                     HistoryDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"].ToString());
                     string[] CurrentWallpapers = Directory.GetFiles(WallpaperInfo.DownloadPath);
-                    CurrentDays = CurrentWallpapers.Length; 
-                    while ((HistoryDays > 0) && (HistoryDays < CurrentDays))
+                    CurrentDays = CurrentWallpapers.Length;
+                    while ((HistoryDays > 0) && (HistoryDays < CurrentDays) && (temp < CurrentWallpapers.Length))
                     {
                         fileCreationDateTime = File.GetCreationTime(CurrentWallpapers[temp]);
                         if ((TodayDataTime - fileCreationDateTime).Days > HistoryDays)
                         {
                             File.Delete(CurrentWallpapers[temp]);
+                            CurrentDays--;
                         }
-                        CurrentDays--;
+                        temp++;
+                    }
+                }
+                else
+                {
+                    string[] CurrentWallpapers = Directory.GetFiles(WallpaperInfo.DownloadPath);
+                    CurrentDays = CurrentWallpapers.Length;
+                    while ((CurrentDays > 1) && (temp < CurrentWallpapers.Length))
+                    {
+                        fileCreationDateTime = File.GetCreationTime(CurrentWallpapers[temp]);
+                        if ((TodayDataTime - fileCreationDateTime).TotalHours > 1)
+                        {
+                            File.Delete(CurrentWallpapers[temp]);
+                            CurrentDays--;
+                        }
                         temp++;
                     }
                 }

@@ -110,9 +110,15 @@ namespace BingWallpaper
                 StartTime = System.DateTime.ParseExact(xn_startdata.InnerText, "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
                 String HistoryPath = System.Configuration.ConfigurationManager.AppSettings["DownloadPath"].ToString();
                 if (HistoryPath == "root")
-                    DownloadPath = System.AppDomain.CurrentDomain.BaseDirectory + "history\\";
+                {
+                    DownloadPath = System.AppDomain.CurrentDomain.BaseDirectory + "BingHistory\\";
+                }
                 else
-                    DownloadPath = HistoryPath;
+                    DownloadPath = HistoryPath + "\\BingHistory\\";
+                if (Directory.Exists(DownloadPath) == false)
+                {
+                    Directory.CreateDirectory(DownloadPath);
+                }
                 return 1;
             }
         }
