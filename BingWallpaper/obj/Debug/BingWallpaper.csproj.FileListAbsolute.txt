@@ -18,3 +18,5 @@ C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWal
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.csproj.GenerateResource.Cache
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.AboutBox1.resources
 C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.ImageShow.resources
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.Settings.resources
+C:\Users\hasee\Desktop\My Projects\BingWallpaper\BingWallpaper\obj\Debug\BingWallpaper.TimingMessageBox.resources

@@ -48,10 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>binglogo.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\binglogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -84,6 +85,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimingMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimingMessageBox.Designer.cs">
+      <DependentUpon>TimingMessageBox.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +116,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimingMessageBox.resx">
+      <DependentUpon>TimingMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,14 +133,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="arrows_circle_check.png" />
-    <Content Include="arrows_circle_remove.png" />
-    <Content Include="arrows_info.png" />
-    <Content Include="binglogo.ico" />
-    <None Include="lx-logo.png" />
+    <Content Include="Resources\arrows_circle_check.png" />
+    <Content Include="Resources\arrows_circle_remove.png" />
+    <Content Include="Resources\arrows_info.png" />
+    <Content Include="Resources\binglogo.ico" />
+    <None Include="Resources\lx-logo.png" />
     <None Include="Resources\bing_logo.jpg" />
     <None Include="Resources\Bing-logo-2013.png" />
     <None Include="Resources\Bing-logo.png" />

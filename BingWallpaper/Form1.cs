@@ -41,6 +41,7 @@ namespace BingWallpaper
             private string urlSmall = null;
             private string urlBig = null;
             private string copyright = null;
+            private string downloadpath = null;
 
             public BingInfo()
             {
@@ -65,11 +66,20 @@ namespace BingWallpaper
                 get { return copyright; }
                 set { copyright = value; }
             }
+
             public System.DateTime StartTime
             {
                 get { return startTime; }
                 set { startTime = value; }
             }
+
+            public string DownloadPath
+            {
+                get { return downloadpath; }
+                set { downloadpath = value; }
+            }
+
+
             /// <summary>
             /// 采用Bing的一个xml格式的API，获取数据
             /// </summary>
@@ -79,7 +89,9 @@ namespace BingWallpaper
                 XmlDocument doc = new XmlDocument();
                 try
                 {
-                    doc.Load(@"http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1");
+                    //“en-US”,”zh-CN”,”ja-JP”,”en-AU”,”en-UK”,”de-DE”,”en-NZ”.
+                    String region = System.Configuration.ConfigurationManager.AppSettings["Region"].ToString();
+                    doc.Load(@"http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=" + region);
                 }
                 catch(Exception ex)
                 {
@@ -90,12 +102,17 @@ namespace BingWallpaper
                 XmlNode xn = doc.SelectSingleNode("images");
                 xn = xn.SelectSingleNode("image");
                 XmlNode xn_url = xn.SelectSingleNode("url");
-                UrlSmall = "http://cn.bing.com/" + xn_url.InnerText;
+                UrlSmall = "http://www.bing.com/" + xn_url.InnerText;
                 UrlBig = UrlSmall.Replace("1366x768", "1920x1080");
                 XmlNode xn_copyright = xn.SelectSingleNode("copyright");
                 Copyright = xn_copyright.InnerText;
                 XmlNode xn_startdata = xn.SelectSingleNode("startdate");
                 StartTime = System.DateTime.ParseExact(xn_startdata.InnerText, "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
+                String HistoryPath = System.Configuration.ConfigurationManager.AppSettings["DownloadPath"].ToString();
+                if (HistoryPath == "root")
+                    DownloadPath = System.AppDomain.CurrentDomain.BaseDirectory + "history\\";
+                else
+                    DownloadPath = HistoryPath;
                 return 1;
             }
         }
@@ -120,15 +137,16 @@ namespace BingWallpaper
         /// Downloads the wallpaper.
         /// </summary>
         /// <param name="url">The URL.</param>
+        /// <param name="DownloadPath">The download path.</param>
         /// <returns></returns>
-        public static string DownloadWallpaper(string url)
+        public static string DownloadWallpaper(string url, string DownloadPath)
         {
             string filename = null;
             try
             {
                 WebClient client = new WebClient();
                 filename = Path.GetFileName(url);
-                client.DownloadFile(url, filename);
+                client.DownloadFile(url, DownloadPath + filename);
                 return filename;
             }
             catch (Exception ex)
@@ -158,8 +176,8 @@ namespace BingWallpaper
                 WallpaperUrl = WallpaperInfo.UrlSmall;
             else
                 MessageBox.Show("Resolution Error!");
-            string filename = DownloadWallpaper(WallpaperUrl);
-            string filepath = Directory.GetCurrentDirectory() + "\\" + filename;
+            string filename = DownloadWallpaper(WallpaperUrl, WallpaperInfo.DownloadPath);
+            string filepath = WallpaperInfo.DownloadPath + filename;
             result = SystemParametersInfo(20, 0, filepath, 0x01 | 0x02);
             return result;
             //if (SetResult != 0)
@@ -199,13 +217,14 @@ namespace BingWallpaper
         }
 
         /// <summary>
-        /// 托盘右键中设置桌面背景的Handles
+        /// 托盘右键中设置的Handles
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void setAsWallpaperToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width); //获取当前分辨率
+            Settings mysettings = new Settings();
+            mysettings.Show();
         }
 
         /// <summary>
@@ -228,6 +247,16 @@ namespace BingWallpaper
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            int result = 0;
+            result = WallpaperInfo.GetBingInfo();
+            if (result == -1)
+                return;
+            ImageShow WallpaperPreviewFrm = new ImageShow(WallpaperInfo);
+            WallpaperPreviewFrm.Show();
         }
     }
 }

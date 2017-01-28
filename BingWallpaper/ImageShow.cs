@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 /// <summary>
 /// 用于图片的预览，可以快速设置壁纸
@@ -83,16 +84,47 @@ namespace BingWallpaper
         Form1.BingInfo WallpaperInfo;
 
         /// <summary>
-        /// 图片按键，设置桌面
+        /// 图片按键，设置桌面，同时根据配置文件删除历史图片
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             int result = 0;
+            int CurrentDays = 0;
+            int HistoryDays = 0;
+            int temp = 0;
+            DateTime fileCreationDateTime;
+            DateTime TodayDataTime = DateTime.Now;
             result = Form1.SetWallpaper(WallpaperInfo, Screen.GetWorkingArea(this).Width);
             if (result < 1)
-                this.Close();
+            {
+                MessageBox.Show(String.Format("设置出错！错误代码为{0}。", result));
+            }
+            else
+            {
+                if (ConfigurationManager.AppSettings["KeepHistory"].ToString() == "true")
+                {
+                    HistoryDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"].ToString());
+                    string[] CurrentWallpapers = Directory.GetFiles(WallpaperInfo.DownloadPath);
+                    CurrentDays = CurrentWallpapers.Length; 
+                    while ((HistoryDays > 0) && (HistoryDays < CurrentDays))
+                    {
+                        fileCreationDateTime = File.GetCreationTime(CurrentWallpapers[temp]);
+                        if ((TodayDataTime - fileCreationDateTime).Days > HistoryDays)
+                        {
+                            File.Delete(CurrentWallpapers[temp]);
+                        }
+                        CurrentDays--;
+                        temp++;
+                    }
+                }
+                if (ConfigurationManager.AppSettings["QuitWhenDone"].ToString() == "true")
+                {
+                    TimingMessageBox messageBox = new TimingMessageBox("设置成功，3秒后自动退出", 3);
+                    messageBox.ShowDialog();
+                }
+            }
         }
 
         /// <summary>
