@@ -132,7 +132,7 @@ namespace BingWallpaper
             if (checkBox3.Checked) //设置开机自启动  
             {
                 string path = Application.ExecutablePath;
-                RegistryKey rk = Registry.LocalMachine;
+                RegistryKey rk = Registry.CurrentUser;
                 RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
                 rk2.SetValue("JcShutdown", path);
                 rk2.Close();
@@ -142,7 +142,7 @@ namespace BingWallpaper
             else //取消开机自启动  
             { 
                 string path = Application.ExecutablePath;
-                RegistryKey rk = Registry.LocalMachine;
+                RegistryKey rk = Registry.CurrentUser;
                 RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
                 rk2.DeleteValue("JcShutdown", false);
                 rk2.Close();
