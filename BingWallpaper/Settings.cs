@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using Microsoft.Win32;
 
 namespace BingWallpaper
 {
@@ -19,6 +20,9 @@ namespace BingWallpaper
             readConfig();
         }
 
+        /// <summary>
+        /// 读取配置文件
+        /// </summary>
         private void readConfig()
         {
             String region = ConfigurationManager.AppSettings["Region"].ToString();
@@ -26,6 +30,7 @@ namespace BingWallpaper
             String HistoryDays = ConfigurationManager.AppSettings["HistoryDays"].ToString();
             String DownloadPath = ConfigurationManager.AppSettings["DownloadPath"].ToString();
             String QuitWhenDone = ConfigurationManager.AppSettings["QuitWhenDone"].ToString();
+            String Boot = ConfigurationManager.AppSettings["Boot"].ToString();
             if (region == "zh-CN")
                 radioButton1.Checked = true;
             if (region == "en-US")
@@ -42,6 +47,7 @@ namespace BingWallpaper
                 radioButton7.Checked = true;
             checkBox2.Checked = Convert.ToBoolean(KeepHistory);
             checkBox1.Checked = Convert.ToBoolean(QuitWhenDone);
+            checkBox3.Checked = Convert.ToBoolean(Boot);
             textBox1.Text = HistoryDays;
             if (DownloadPath == "root")
                 textBox2.Text = "";
@@ -89,7 +95,7 @@ namespace BingWallpaper
         }
 
         /// <summary>
-        /// Handles the Click event of the button1 control.
+        /// 应用button的Handles，将当前选型存入配置文件中
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -122,12 +128,37 @@ namespace BingWallpaper
                 config.AppSettings.Settings["DownloadPath"].Value = "root";
             else
                 config.AppSettings.Settings["DownloadPath"].Value = textBox2.Text;
-            config.AppSettings.Settings["HistoryDays"].Value = textBox1.Text;
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
+            config.AppSettings.Settings["HistoryDays"].Value = textBox1.Text;           
+            if (checkBox3.Checked) //设置开机自启动  
+            {
+                string path = Application.ExecutablePath;
+                RegistryKey rk = Registry.LocalMachine;
+                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                rk2.SetValue("JcShutdown", path);
+                rk2.Close();
+                rk.Close();
+                config.AppSettings.Settings["Boot"].Value = "true";
+            }
+            else //取消开机自启动  
+            { 
+                string path = Application.ExecutablePath;
+                RegistryKey rk = Registry.LocalMachine;
+                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                rk2.DeleteValue("JcShutdown", false);
+                rk2.Close();
+                rk.Close();
+                config.AppSettings.Settings["Boot"].Value = "false";
+            }
+            config.Save(ConfigurationSaveMode.Modified);  //保存修改
+            ConfigurationManager.RefreshSection("appSettings"); //必须刷新才能读取修改后的值
             button3.Text = "关闭";
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkBox2 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -144,6 +175,11 @@ namespace BingWallpaper
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the button2 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button2_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)

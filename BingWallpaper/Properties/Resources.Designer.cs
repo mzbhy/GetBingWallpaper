@@ -63,6 +63,16 @@ namespace BingWallpaper.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap _02_Black_paper {
+            get {
+                object obj = ResourceManager.GetObject("_02_Black_paper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap arrows_circle_check {
             get {
                 object obj = ResourceManager.GetObject("arrows_circle_check", resourceCulture);

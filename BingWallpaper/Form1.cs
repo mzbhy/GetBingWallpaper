@@ -207,6 +207,8 @@ namespace BingWallpaper
         int fuWinIni
         );
 
+        #region Handles
+
         /// <summary>
         /// 托盘右键中预览图片的Handles
         /// </summary>
@@ -240,7 +242,7 @@ namespace BingWallpaper
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutBox1 myabout = new AboutBox1();
+            AboutBox myabout = new AboutBox();
             myabout.Show();
 
         }
@@ -255,6 +257,11 @@ namespace BingWallpaper
             Application.Exit();
         }
 
+        /// <summary>
+        /// 托盘双击的Handles，用于实现双击唤出ImageShow窗体。
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             int result = 0;
@@ -264,5 +271,6 @@ namespace BingWallpaper
             ImageShow WallpaperPreviewFrm = new ImageShow(WallpaperInfo);
             WallpaperPreviewFrm.Show();
         }
+        #endregion
     }
 }
