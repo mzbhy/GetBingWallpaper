@@ -5,11 +5,11 @@
 
 打开程序后，右击托盘选择“Preview Today‘s Wallpaper"或双击托盘，会出现加载有今日壁纸的主窗体：
 
-![](http://www.lxalxy.com/medias/article_images/2016/08/20/kngdgp.png)
+![](http://ww1.sinaimg.cn/large/6486a686ly1fclnnz056lj20m80ci7ot)
 
 点击右上角√即可设置壁纸，点击×关闭窗体，鼠标放在i上可以获取该张壁纸的简单信息。
 
-## 目前实现功能
+## 更新日志
 
 ### 2016.8.20
 
