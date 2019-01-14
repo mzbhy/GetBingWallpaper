@@ -2,19 +2,22 @@
 # coding:utf-8
 
 """Download Bing everyday wallpaper.
+
 Usage:
-	GetBingWallpaperPy [-cps]
-	GetBingWallpaperPy [-cps] PATH
+	GetBingWallpaperPy [-cps] [<PATH>]
+
 Options:
-	-h --help	
+	-h --help	显示帮助菜单
 	-c		显示版权信息
 	-p		设置壁纸前预览今日壁纸
 	-s		直接设置壁纸，无需确认
+
 Example:
 	GetBingWallpaperPy
 	GetBingWallpaperPy -c
 	GetBingWallpaperPy -cps
 	GetBingWallpaperPy -cp D:\\temp
+
 """
 
 from urllib.request import urlopen, urlretrieve
@@ -26,7 +29,7 @@ import sys,io,os
 import threading
 
 # 改变标准输出的默认编码 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')
 
 
 class BingInfo(object):
@@ -86,9 +89,9 @@ def main():
 	arguments = docopt(__doc__)
 	todayWall = BingInfo()
 
-	filePath = arguments['<szFilePath>'].decode('GB2312')
-	if not filePath:
-		todayWall._saveDir = filePath
+	filePath = arguments['<PATH>']
+	if filePath is not None:
+		todayWall._saveDir = filePath.encode('GB2312').decode('GB2312')
 	else:
 		todayWall._saveDir = os.path.dirname(os.path.realpath(__file__)) + "\images"
 
