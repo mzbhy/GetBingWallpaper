@@ -1,5 +1,6 @@
 # GetBingWallpaper
 利用C#编写，Visual Studio 2015编译。将Bing首页的背景图下载并设置为系统桌面，程序默认为托盘形式，双击可唤出主要窗体。
+[Python版](https://github.com/lxalxy/GetBingWallpaper/tree/py).
 
 ## 使用方法
 
